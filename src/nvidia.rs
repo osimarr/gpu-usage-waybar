@@ -184,11 +184,13 @@ impl GpuStatus for NvidiaGpuStatus<'_> {
             GpuPowerState::Off => GpuStatusData {
                 powered_on: false,
                 has_running_processes: false,
+                gpu_index: Some(self.gpu_index),
                 ..Default::default()
             },
             GpuPowerState::OnNoProcess => GpuStatusData {
                 powered_on: true,
                 has_running_processes: false,
+                gpu_index: Some(self.gpu_index),
                 ..Default::default()
             },
             GpuPowerState::PoweredOnInUse => self.collect_active_gpu_stats(),

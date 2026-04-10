@@ -84,7 +84,9 @@ fn main() -> Result<()> {
 
     let gpu_status_handler: Box<dyn GpuStatus> = match get_instance(config.general.gpu_index) {
         Instance::Nvml(nvml) => Box::new(NvidiaGpuStatus::new(nvml, config.general.gpu_index)?),
-        Instance::Amd(amd_sys_fs) => Box::new(AmdGpuStatus::new(amd_sys_fs)?),
+        Instance::Amd(amd_sys_fs) => {
+            Box::new(AmdGpuStatus::new(amd_sys_fs, config.general.gpu_index)?)
+        }
     };
 
     // If the the user didn't set a custom tooltip format,
