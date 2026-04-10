@@ -67,14 +67,14 @@ pub struct AmdSysFS {
 }
 
 impl AmdSysFS {
-    pub fn init() -> Result<Self> {
+    pub fn init(gpu_index: u8) -> Result<Self> {
         let drm_gpus = Self::get_drm_gpus()?;
 
         if drm_gpus.is_empty() {
             return Err(eyre!("No AMD GPU found"));
         }
 
-        let gpu_handle = GpuHandle::new_from_path(drm_gpus[0].clone())?;
+        let gpu_handle = GpuHandle::new_from_path(drm_gpus[gpu_index as usize].clone())?;
 
         Ok(Self { gpu_handle })
     }

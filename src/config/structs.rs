@@ -22,6 +22,9 @@ impl ConfigFile {
         if let Some(interval) = args.interval {
             self.general.interval = interval;
         }
+        if let Some(gpu_index) = args.gpu_index {
+            self.general.gpu_index = gpu_index;
+        }
         if let Some(ref text_format) = args.text_format {
             self.text.format = text_format.to_owned();
         }
@@ -47,6 +50,8 @@ pub struct TextConfig {
 pub struct GeneralConfig {
     #[default(1000)]
     pub interval: u64,
+    #[default(0)]
+    pub gpu_index: u8,
 }
 
 #[derive(Deserialize, SmartDefault)]
